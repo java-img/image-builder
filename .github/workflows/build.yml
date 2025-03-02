@@ -29,5 +29,5 @@ jobs:
         run: |
           docker build --build-arg JDK_VERSION=${{ matrix.version }} . -t ghcr.io/java-img/openjdk:${{ matrix.version }}
           docker build --build-arg JDK_VERSION=${{ matrix.version }}-jre . -t ghcr.io/java-img/openjdk:${{ matrix.version }}-jre
-          docker push ghcr.io/java-img/openjdk${{ matrix.version }}
-          docker push ghcr.io/java-img/openjdk${{ matrix.version }}-jre
+          docker push ghcr.io/java-img/openjdk:${{ matrix.version }}
+          docker push ghcr.io/java-img/openjdk:${{ matrix.version }}-jre
