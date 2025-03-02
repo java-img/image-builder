@@ -1,0 +1,33 @@
+name: Publish
+
+on:
+  push:
+  schedule:
+    - cron: "45 4 * * *" # 04:45 UTC every day
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    strategy:
+      matrix:
+        version: [8, 11, 17, 21]
+    steps:
+      - name: Check-out
+        uses: actions/checkout@v4
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{github.actor}}
+          password: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Build & publish image
+        run: |
+          docker build --build-arg JDK_VERSION=${{ matrix.version }} . -t ghcr.io/java-img/openjdk:${{ matrix.version }}
+          docker build --build-arg JDK_VERSION=${{ matrix.version }}-jre . -t ghcr.io/java-img/openjdk:${{ matrix.version }}-jre
+          docker push ghcr.io/java-img/openjdk${{ matrix.version }}
+          docker push ghcr.io/java-img/openjdk${{ matrix.version }}-jre
