@@ -1,6 +1,6 @@
 # Image builder
 
-Builds Docker Images for all Java LTS Versions every day on an Alpine base
+Builds Docker Images for all Java LTS Versions every week on an alpine base
 
 ## Images
 

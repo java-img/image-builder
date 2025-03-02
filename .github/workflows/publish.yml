@@ -3,7 +3,7 @@ name: Publish
 on:
   push:
   schedule:
-    - cron: "45 4 * * *" # 04:45 UTC every day
+    - cron: "45 4 * * 1" # 04:45 UTC every Monday
 
 jobs:
   publish:
